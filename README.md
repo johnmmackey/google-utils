@@ -58,18 +58,18 @@ See the note below regarding the supported event types.
 ```
 The property definitions are the same as the above. Note that the `start` and `end` values can be submitted as Javascript Date() objects as they are automatically serialized to ISO8601 format.
 
-The `createEvent` method is asynchronous. The returned Promise resolves to an object with the notable property `data.id`, which is the `eventId` of the newly created event.
+The `createEvent` method is asynchronous. The returned Promise resolves to an object with the notable property `data.id`, which is the `id` of the newly created event.
 
 ### Delete an event
 ```
     let r = await gc.deleteEvent(calendarId, eventId)
 ```
-The property definitions are the same as the above. 
+The parameter definitions are as above.
 
 The `deleteEvent` method is asynchronous. The returned Promise resolves to an object with diagnostic information only.
 
 ### Recurring and Full Day Events
-Recurring events can be read, but they are *flattened* into individual events (each with their own `eventId`). Recurring events cannot be created. Full Day events are not supported, as they involve timezone ambiguity issues.
+Recurring events can be read, but they are *flattened* into individual events (each with their own `id`). Recurring events cannot be created. Instances of recurring events can be deleted. Full Day events are not supported, as they involve timezone ambiguity issues.
 
 ### Error handling
 The `getCal`, `createEvent`, and `deleteEvent` methods will throw an exception if an error is encountered. Potentially useful properties of the `Error` object:
