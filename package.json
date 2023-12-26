@@ -1,0 +1,25 @@
+{
+  "name": "@johnmmackey/google-utils",
+  "version": "1.0.0",
+  "description": "Google API Utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.js -r dotenv/config"
+  },
+  "author": "John Mackey",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/johnmmackey/google-utils.git"
+  },
+  "dependencies": {
+    "@johnmmackey/general-utils": "^1.0.0",
+    "axios": "^1.6.2",
+    "debug": "^4.3.4",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "mocha": "^10.2.0"
+  }
+}
