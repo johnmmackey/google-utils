@@ -1,6 +1,7 @@
 # Google Utilities
 A small library of useful classes for interfacing with Google APIs.
 
+# Google Calendar
 ## Reading a Google Calendar
 ```
             const gc = new GoogleCalendar({
@@ -35,7 +36,7 @@ A small library of useful classes for interfacing with Google APIs.
             );
 ```
 
-##
+## Write a new event to calendar
 ```
             const gc = new GoogleCalendar({
                 clientEmail: ACCOUNT_EMAIL,
