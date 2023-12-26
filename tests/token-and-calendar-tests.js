@@ -68,7 +68,7 @@ describe('Calendar Operations', function () {
             start.setSeconds(start.getSeconds() - 5);
             //console.log(new Date(), start)
         
-            const events = await gc.getCal(
+            const events = await gc.getEvents(
                 process.env.GCAL_OP_HOURS_CAL,
                 start
             )
@@ -89,6 +89,30 @@ describe('Calendar Operations', function () {
                 eventId
             );
             assert.ok(true, `event deletion failed`);
+        })
+    })
+
+    describe('Read an invalid calendar', function() {
+        it('should return a 404 error', async function () {
+            const gc = new GoogleCalendar({
+                clientEmail: process.env.GCAL_CLIENT_EMAIL,
+                privateKey: process.env.GCAL_PRIVATE_KEY,
+            });
+
+            let start = new Date();
+            start.setSeconds(start.getSeconds() - 5);
+            var errorCode = 0;
+        
+            try{
+            const events = await gc.getEvents(
+                process.env.GCAL_OP_HOURS_CAL+'1',
+                start
+            )
+            } catch(err) {
+                errorCode = err.response.status;
+            }
+
+            assert.ok(errorCode === 404, `Did not get expected 404 error`);
         })
     })
 });

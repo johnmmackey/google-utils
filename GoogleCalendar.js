@@ -21,7 +21,7 @@ class GoogleCalendar {
 	}
 
 	// helper function.  Returns a promise of calendar data with metadata injected.  If eventId speced it gets instances (assumed recurring)
-	async getCalEvents(access_token, startDate, endDate, calId, eventId) {
+	async #readEvents(access_token, startDate, endDate, calId, eventId) {
 		debug(`Reading google calendar ${calId}`);
 		const config = {
 			url: gCalEndpoint + calId + '/events' + (eventId ? '/' + eventId + '/instances' : ''),
@@ -38,7 +38,7 @@ class GoogleCalendar {
 		return response.data.items;
 	}
 
-	async getCal(calId, startDate, endDate) {
+	async getEvents(calId, startDate, endDate) {
 		if (!endDate) {
 			endDate = (new Date(startDate))
 			endDate.setFullYear(startDate.getFullYear() + 1);
@@ -50,11 +50,11 @@ class GoogleCalendar {
 		const access_token = await this.accessTokenProvider.get();
 
 		let result = (await Promise.all(
-			(await this.getCalEvents(access_token, startDate, endDate, calId))
+			(await this.#readEvents(access_token, startDate, endDate, calId))
 				.filter(e => !e.recurringEventId)												// take out any instances of recurrenence at top level - will get them again in next step.
 				.filter(e => e.start.dateTime && e.end.dateTime)								// remove any "full day" items - hard to get TZ right
 				.map(async event => event.recurrence											// for those that are recurring events, get the ind events.
-					? await this.getCalEvents(access_token, startDate, endDate, calId, event.id)	// map (await..) returns an array of Promises - need Promise.all above to resolve
+					? await this.#readEvents(access_token, startDate, endDate, calId, event.id)	// map (await..) returns an array of Promises - need Promise.all above to resolve
 					: event
 				)
 		))
@@ -118,7 +118,6 @@ class GoogleCalendar {
 		debug(`Deleted event ${eventId}`);
 		return result;
 	}
-
 }
 
 module.exports = { GoogleCalendar }
