@@ -76,3 +76,14 @@ The `getCal`, `createEvent`, and `deleteEvent` methods will throw an exception i
 * `response.status`: the HTTP error code
 * `response.statusText`: the equivalent in textual form
 * `response.data`: (if present): an object contain further diagnostic information
+
+## Debugging
+This package uses the [debug](https://github.com/debug-js/debug) package to allow consumers to get diagnostic information. Set the `DEBUG` environment variable to a comma-delimited set of keywords to get diagnostic data from various modules.
+The current defined keywords are:
+* `52west:GCal`: for diagnostics from the Google Calendar class and related API interface
+* `52west:GAuth`: for the supporting authorization token mechanisms.
+
+Full diagnostics example:
+```bash
+DEBUG=52west:GCal,52west:GAuth node my-consuming-app.js
+```
