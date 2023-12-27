@@ -115,5 +115,47 @@ describe('Calendar Operations', function () {
             assert.ok(errorCode === 404, `Did not get expected 404 error`);
         })
     })
+
+    describe('Create a calendar event', function() {
+        it('should create a calendar event with default color', async function () {
+            const gc = new GoogleCalendar({
+                clientEmail: process.env.GCAL_CLIENT_EMAIL,
+                privateKey: process.env.GCAL_PRIVATE_KEY,
+            });
+            
+            let r = await gc.createEvent(
+                process.env.GCAL_OP_HOURS_CAL,
+                {
+                    title:'Test Event: ' + Date.now(),
+                    description: 'This is a test event',
+                    start:  new Date(),
+                    end: new Date(),
+                    location: 'Test Location'
+                }
+            );
+            assert.ok(r.data.id, `no event appears to have been created`);
+            eventId = r.data.id;
+        })
+    });
+
+    describe('Create a calendar event', function() {
+        it('should create a calendar event with non-standard color and no text', async function () {
+            const gc = new GoogleCalendar({
+                clientEmail: process.env.GCAL_CLIENT_EMAIL,
+                privateKey: process.env.GCAL_PRIVATE_KEY,
+            });
+            
+            let r = await gc.createEvent(
+                process.env.GCAL_OP_HOURS_CAL,
+                {
+                    start:  new Date(),
+                    end: new Date(),
+                    colorId: "2"
+                }
+            );
+            assert.ok(r.data.id, `no event appears to have been created`);
+            eventId = r.data.id;
+        })
+    });
 });
 

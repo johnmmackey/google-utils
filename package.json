@@ -1,6 +1,6 @@
 {
   "name": "@johnmmackey/google-utils",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Google API Utilities",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@johnmmackey/general-utils": "^1.0.0",
-    "axios": "^1.6.2",
+    "axios": "^1.6.3",
     "debug": "^4.3.4",
     "jsonwebtoken": "^9.0.2"
   },
@@ -23,3 +23,4 @@
     "mocha": "^10.2.0"
   }
 }
+
