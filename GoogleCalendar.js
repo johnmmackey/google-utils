@@ -87,10 +87,10 @@ class GoogleCalendar {
 				'Authorization': 'Bearer ' + access_token
 			},
 			data: {
-				summary: event.title || null,
-				description: event.description || null,
-				location: event.location || null,
-				colorId: event.colorId || null,
+				...(event.title && {summary: event.title}),
+				...(event.description && {description: event.description}),
+				...(event.location && {location: event.location}),
+				...(event.colorId && {colorId: event.colorId}),
 				start: {
 					dateTime: event.start
 				},
